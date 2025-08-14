@@ -1,0 +1,9 @@
+version: "2"
+sql:
+  - schema: "pkg/database/sqlc/schema.sql"    # Path to your database schema
+    queries: "pkg/database/sqlc/queries.sql"  # Path to your SQL queries
+    engine: "postgresql"                      # or "mysql"
+    gen:
+      go:
+        package: "database"                   # Package name for generated code
+        out: "pkg/database/sqlc"              # Output directory
