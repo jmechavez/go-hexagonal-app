@@ -1,8 +1,9 @@
 # Go Hexagonal Architecture App
 
-A sample Go application demonstrating hexagonal architecture with PostgreSQL, Gorilla Mux, Alpine.js, and Go Templ.
+This is a test project only for learning purposes and does not include any real-world functionality. It is designed to showcase the structure and organization of a Go application using hexagonal architecture principles.
 
 ## Features
+
 - Clean hexagonal architecture
 - PostgreSQL database with SQLC
 - REST API with Gorilla Mux
@@ -10,6 +11,7 @@ A sample Go application demonstrating hexagonal architecture with PostgreSQL, Go
 - Docker containerization
 
 ## Technologies Used
+
 - Go 1.21+
 - PostgreSQL
 - Gorilla Mux
@@ -21,6 +23,7 @@ A sample Go application demonstrating hexagonal architecture with PostgreSQL, Go
 ## Getting Started
 
 ### Prerequisites
+
 - Go 1.24+
 - Docker & Docker Compose
 - Node.js (for templ generation)
