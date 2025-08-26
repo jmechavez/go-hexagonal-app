@@ -5,13 +5,13 @@
 package database
 
 import (
-	"database/sql"
+	"time"
 )
 
 type User struct {
-	ID        int32
+	ID        int64
 	Name      string
 	Email     string
-	CreatedAt sql.NullTime
-	UpdatedAt sql.NullTime
+	CreatedAt time.Time
+	UpdatedAt time.Time
 }
