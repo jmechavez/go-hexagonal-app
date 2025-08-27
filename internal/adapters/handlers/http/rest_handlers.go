@@ -14,7 +14,7 @@ type restHandlers struct {
 	userService ports.UserService
 }
 
-func NewRESTHandlers(userService ports.UserService) ports.RESTHandlers {
+func NewRESTHandlers(userService ports.UserService) *restHandlers {
 	return &restHandlers{
 		userService: userService,
 	}
@@ -75,5 +75,51 @@ func (h *restHandlers) GetUserByEmail(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *restHandlers) ListUsers(w http.ResponseWriter, r *http.Request) {
-	// Implementation of ListUsers handler
+	users, err := h.userService.ListUsers(r.Context())
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(users)
+}
+
+func (h *restHandlers) UpdateUser(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id, err := strconv.ParseInt(vars["id"], 10, 64)
+	if err != nil {
+		http.Error(w, "Invalid User ID", http.StatusBadRequest)
+		return
+	}
+	var req domain.UserUpdateRequest
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	req.ID = id
+
+	user, err := h.userService.UpdateUser(r.Context(), req)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(user)
+}
+
+func (h *restHandlers) DeleteUser(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id, err := strconv.ParseInt(vars["id"], 10, 64)
+	if err != nil {
+		http.Error(w, "Invalid user ID", http.StatusBadRequest)
+		return
+	}
+
+	err = h.userService.DeleteUser(r.Context(), id)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.WriteHeader(http.StatusNoContent)
 }
