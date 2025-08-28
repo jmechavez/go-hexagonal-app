@@ -12,7 +12,7 @@ This is a test project only for learning purposes and does not include any real-
 
 ## Technologies Used
 
-- Go 1.21+
+- Go 1.25
 - PostgreSQL
 - Gorilla Mux
 - Alpine.js
